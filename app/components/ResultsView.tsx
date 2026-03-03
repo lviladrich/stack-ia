@@ -1,5 +1,4 @@
 import StackTable from "./StackTable";
-import ArchitectureDiagram from "./ArchitectureDiagram";
 import Justification from "./Justification";
 import PrebuiltPrompts from "./PrebuiltPrompts";
 import SecurityWarnings from "./SecurityWarnings";
@@ -15,10 +14,6 @@ interface ResultsViewProps {
       recommendations: any[];
       workflow: any[];
       security_warnings?: string[];
-    };
-    architecture_diagram?: {
-      nodes: any[];
-      edges: any[];
     };
   };
 }
@@ -40,9 +35,6 @@ export default function ResultsView({ data }: ResultsViewProps) {
 
       {/* Stack table */}
       <StackTable recommendations={result.recommendations} />
-
-      {/* Architecture diagram */}
-      <ArchitectureDiagram diagram={data.architecture_diagram} />
 
       {/* Justification */}
       <Justification recommendations={result.recommendations} />
