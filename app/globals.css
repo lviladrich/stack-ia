@@ -32,17 +32,19 @@ body {
 
 /* Apple-style gradient text */
 .gradient-text {
-  background: linear-gradient(90deg, #a855f7, #c084fc, #e879f9, #818cf8);
-  background-size: 200% 200%;
+  background: linear-gradient(90deg, #a855f7, #38bdf8, #e879f9, #34d399, #818cf8, #f472b6, #a855f7);
+  background-size: 400% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shift 8s ease infinite;
+  animation: gradient-shift 10s ease infinite;
 }
 
 @keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0% { background-position: 0% 50%; }
+  33% { background-position: 50% 50%; }
+  66% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Glass morphism */
