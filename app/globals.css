@@ -38,6 +38,7 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: gradient-shift 10s ease infinite;
+  will-change: background-position;
 }
 
 @keyframes gradient-shift {
@@ -53,42 +54,37 @@ body {
   border: 1px solid var(--border);
 }
 
-/* Smooth transitions — only on interactive elements */
-a, button, input, textarea, select, [role="button"] {
-  transition-property: background-color, border-color, color, opacity, transform, box-shadow;
-  transition-duration: 120ms;
-  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+/* Fast transitions — only on buttons and links */
+button:not(.no-transition),
+a:not(.no-transition),
+[role="button"]:not(.no-transition) {
+  transition: background-color 100ms, border-color 100ms, color 100ms;
 }
 
-/* Scrollbar — invisible by default */
+/* No transition for form inputs (avoids lag while typing) */
+.no-transition { transition: none !important; }
+
+/* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
 
 /* Glow effects */
-.glow-blue { box-shadow: 0 0 30px rgba(168, 85, 247, 0.15); }
-.glow-purple { box-shadow: 0 0 30px rgba(168, 85, 247, 0.12); }
-.glow-soft { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); }
+.glow-purple { box-shadow: 0 0 20px rgba(168, 85, 247, 0.1); }
 
-/* Apple-style entry animations */
+/* Entry animations */
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-up {
-  animation: fade-up 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+  animation: fade-up 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) both;
 }
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
-
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
-.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+.delay-1 { animation-delay: 50ms; }
+.delay-2 { animation-delay: 100ms; }
+.delay-3 { animation-delay: 150ms; }
+.delay-4 { animation-delay: 200ms; }
 
 /* Marquee scroll */
 @keyframes marquee {
@@ -97,6 +93,7 @@ a, button, input, textarea, select, [role="button"] {
 }
 .animate-marquee {
   animation: marquee 30s linear infinite;
+  will-change: transform;
 }
 
 /* Focus ring */

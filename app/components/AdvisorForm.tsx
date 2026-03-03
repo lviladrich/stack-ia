@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 
 interface AdvisorFormProps {
   onSubmit: (data: { prompt: string; developer_level: string; budget: string }) => void;
@@ -8,40 +8,50 @@ interface AdvisorFormProps {
   externalPrompt?: string;
 }
 
-export default function AdvisorForm({ onSubmit, isLoading, externalPrompt }: AdvisorFormProps) {
+export default memo(function AdvisorForm({ onSubmit, isLoading, externalPrompt }: AdvisorFormProps) {
   const [prompt, setPrompt] = useState("");
   const [level, setLevel] = useState("mid");
   const [budget, setBudget] = useState("medium");
 
   useEffect(() => {
-    if (externalPrompt) setPrompt(externalPrompt);
+    if (externalPrompt?.trim()) setPrompt(externalPrompt);
   }, [externalPrompt]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     if (!prompt.trim()) return;
     onSubmit({ prompt, developer_level: level, budget });
-  };
+  }, [prompt, level, budget, onSubmit]);
+
+  const handlePromptChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setPrompt(e.target.value);
+  }, []);
+
+  const handleLevelChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setLevel(e.target.value);
+  }, []);
+
+  const handleBudgetChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setBudget(e.target.value);
+  }, []);
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* Textarea with glass effect */}
-      <div className="glass rounded-2xl p-1 glow-purple focus-within:border-purple-500/30 transition-all">
+      <div className="glass rounded-2xl p-1 glow-purple focus-within:border-purple-500/30">
         <textarea
           value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
+          onChange={handlePromptChange}
           placeholder="Describe tu proyecto... ej: SaaS de inventario con dashboard, pagos y auth"
           rows={5}
           className="w-full px-5 py-5 bg-transparent text-[var(--text-primary)] placeholder-[var(--text-muted)]/40 focus:outline-none resize-none text-[16px] leading-relaxed"
           disabled={isLoading}
         />
 
-        {/* Controls row inside the glass card */}
         <div className="flex items-center gap-2 px-3 pb-3">
           <select
             value={level}
-            onChange={(e) => setLevel(e.target.value)}
-            className="px-3 py-1.5 bg-white/[0.04] border border-[var(--border)] rounded-lg text-[13px] text-[var(--text-secondary)] focus:outline-none focus:border-[var(--accent)]/40"
+            onChange={handleLevelChange}
+            className="no-transition px-3 py-1.5 bg-white/[0.04] border border-[var(--border)] rounded-lg text-[13px] text-[var(--text-secondary)] focus:outline-none focus:border-[var(--accent)]/40"
             disabled={isLoading}
           >
             <option value="junior">Junior</option>
@@ -51,8 +61,8 @@ export default function AdvisorForm({ onSubmit, isLoading, externalPrompt }: Adv
 
           <select
             value={budget}
-            onChange={(e) => setBudget(e.target.value)}
-            className="px-3 py-1.5 bg-white/[0.04] border border-[var(--border)] rounded-lg text-[13px] text-[var(--text-secondary)] focus:outline-none focus:border-[var(--accent)]/40"
+            onChange={handleBudgetChange}
+            className="no-transition px-3 py-1.5 bg-white/[0.04] border border-[var(--border)] rounded-lg text-[13px] text-[var(--text-secondary)] focus:outline-none focus:border-[var(--accent)]/40"
             disabled={isLoading}
           >
             <option value="free">Gratis</option>
@@ -66,7 +76,7 @@ export default function AdvisorForm({ onSubmit, isLoading, externalPrompt }: Adv
           <button
             type="submit"
             disabled={isLoading || !prompt.trim()}
-            className="px-6 py-2 bg-purple-600 hover:bg-purple-500 disabled:opacity-30 disabled:cursor-not-allowed text-white text-[13px] font-medium rounded-xl transition-all hover:shadow-[0_0_30px_rgba(168,85,247,0.3)]"
+            className="px-6 py-2 bg-purple-600 hover:bg-purple-500 disabled:opacity-30 disabled:cursor-not-allowed text-white text-[13px] font-medium rounded-xl"
           >
             {isLoading ? (
               <span className="flex items-center gap-2">
@@ -82,4 +92,4 @@ export default function AdvisorForm({ onSubmit, isLoading, externalPrompt }: Adv
       </div>
     </form>
   );
-}
+});

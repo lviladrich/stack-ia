@@ -1,10 +1,12 @@
 "use client";
 
+import { memo } from "react";
+
 interface JustificationProps {
   recommendations: any[];
 }
 
-function ScoreRing({ score, size = 40 }: { score: number; size?: number }) {
+const ScoreRing = memo(function ScoreRing({ score, size = 40 }: { score: number; size?: number }) {
   const display = (score * 10).toFixed(1);
   const pct = score * 100;
   const radius = (size - 4) / 2;
@@ -32,9 +34,9 @@ function ScoreRing({ score, size = 40 }: { score: number; size?: number }) {
       </div>
     </div>
   );
-}
+});
 
-export default function Justification({ recommendations }: JustificationProps) {
+export default memo(function Justification({ recommendations }: JustificationProps) {
   return (
     <div className="space-y-5 animate-fade-up delay-2">
       <h2 className="text-2xl font-semibold tracking-tight">Por que estas herramientas</h2>
@@ -47,8 +49,8 @@ export default function Justification({ recommendations }: JustificationProps) {
           const aiJustification = rec.ai_justification || "";
 
           return (
-            <div key={i} className="glass rounded-2xl px-5 py-5 space-y-4">
-              {/* Header: score + tool name */}
+            <div key={`${rec.capability_id}-${i}`} className="glass rounded-2xl px-5 py-5 space-y-4">
+              {/* Header */}
               <div className="flex items-start gap-4">
                 <ScoreRing score={t.final_score} />
                 <div className="flex-1 min-w-0">
@@ -56,19 +58,18 @@ export default function Justification({ recommendations }: JustificationProps) {
                     <span className="font-semibold text-[15px] text-[var(--text-primary)]">{t.tool.name}</span>
                     <span className="text-[11px] text-[var(--text-muted)]">{rec.capability_name}</span>
                   </div>
-                  {/* AI-generated justification */}
                   <p className="text-[13px] text-[var(--text-secondary)] mt-1.5 leading-[1.6]">
                     {aiJustification}
                   </p>
                 </div>
               </div>
 
-              {/* Papers academicos */}
+              {/* Papers */}
               {papers.length > 0 && (
                 <div className="pl-14 space-y-2">
                   <span className="text-[11px] font-medium text-purple-400 uppercase tracking-wider">Papers</span>
-                  {papers.map((paper: any, j: number) => (
-                    <div key={j} className="text-[12px] leading-[1.5]">
+                  {papers.map((paper: any) => (
+                    <div key={paper.id} className="text-[12px] leading-[1.5]">
                       <a
                         href={paper.url}
                         target="_blank"
@@ -83,12 +84,12 @@ export default function Justification({ recommendations }: JustificationProps) {
                 </div>
               )}
 
-              {/* Evidencia tecnica */}
+              {/* Evidencia */}
               {evidence.length > 0 && (
                 <div className="pl-14 space-y-2">
                   <span className="text-[11px] font-medium text-emerald-400 uppercase tracking-wider">Evidencia</span>
-                  {evidence.map((ev: any, j: number) => (
-                    <div key={j} className="text-[12px] leading-[1.5]">
+                  {evidence.map((ev: any) => (
+                    <div key={ev.id} className="text-[12px] leading-[1.5]">
                       <a
                         href={ev.url}
                         target="_blank"
@@ -107,4 +108,4 @@ export default function Justification({ recommendations }: JustificationProps) {
       </div>
     </div>
   );
-}
+});
