@@ -93,7 +93,7 @@ export default function Home() {
     <main className="min-h-screen relative overflow-hidden">
       {/* Background gradient */}
       {!results && !isLoading && (
-        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 70%)' }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 90% 70% at 50% 15%, rgba(88, 28, 135, 0.25) 0%, rgba(59, 7, 100, 0.1) 40%, transparent 75%)' }} />
       )}
 
       {/* ===== HERO STATE ===== */}
@@ -127,39 +127,23 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Example chips with glassmorphism card */}
+          {/* Example chips */}
           <div className="max-w-3xl mx-auto px-6 animate-fade-up delay-2">
-            <div
-              className="relative rounded-[22px] px-6 py-5 mb-8 overflow-hidden"
-              style={{
-                background: 'linear-gradient(135deg, #1A0724 0%, #3C1A70 50%, #1A0724 100%)',
-                boxShadow: '0 0 60px rgba(139, 92, 246, 0.08), 0 0 120px rgba(139, 92, 246, 0.04), inset 0 1px 0 rgba(255,255,255,0.05)',
-                border: '1px solid rgba(139, 92, 246, 0.12)',
-              }}
-            >
-              {/* Inner glow overlay */}
-              <div
-                className="absolute inset-0 rounded-[22px] pointer-events-none"
-                style={{
-                  background: 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(139, 92, 246, 0.06) 0%, transparent 70%)',
-                }}
-              />
-              <div className="relative flex flex-wrap justify-center gap-2">
-                <span className="text-[11px] text-[var(--text-muted)] self-center mr-1">Prueba con:</span>
-                {EXAMPLE_PROMPTS.map((ex, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setSelectedExample(ex)}
-                    className={`px-3.5 py-1.5 text-[12px] rounded-full ${
-                      selectedExample === ex
-                        ? "bg-purple-500/15 text-[var(--text-primary)] border border-purple-500/30"
-                        : "border border-white/[0.08] text-[var(--text-secondary)] hover:border-purple-400/40 hover:text-[var(--text-primary)] hover:bg-white/[0.03]"
-                    }`}
-                  >
-                    {ex}
-                  </button>
-                ))}
-              </div>
+            <div className="flex flex-wrap justify-center gap-2 mb-8">
+              <span className="text-[11px] text-[var(--text-muted)] self-center mr-1">Prueba con:</span>
+              {EXAMPLE_PROMPTS.map((ex, i) => (
+                <button
+                  key={i}
+                  onClick={() => setSelectedExample(ex)}
+                  className={`px-3.5 py-1.5 text-[12px] rounded-full ${
+                    selectedExample === ex
+                      ? "bg-purple-500/15 text-[var(--text-primary)] border border-purple-500/30"
+                      : "border border-white/[0.08] text-[var(--text-secondary)] hover:border-purple-400/40 hover:text-[var(--text-primary)] hover:bg-white/[0.03]"
+                  }`}
+                >
+                  {ex}
+                </button>
+              ))}
             </div>
           </div>
 
