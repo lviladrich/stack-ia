@@ -150,10 +150,10 @@ export default function Home() {
                   <button
                     key={i}
                     onClick={() => setSelectedExample(ex)}
-                    className={`px-3.5 py-1.5 text-[12px] rounded-full transition-colors ${
+                    className={`px-3.5 py-1.5 text-[12px] rounded-full ${
                       selectedExample === ex
                         ? "bg-purple-500/15 text-[var(--text-primary)] border border-purple-500/30"
-                        : "border border-white/[0.08] text-[var(--text-secondary)] hover:border-purple-500/30 hover:text-[var(--text-primary)]"
+                        : "border border-white/[0.08] text-[var(--text-secondary)] hover:border-purple-400/40 hover:text-[var(--text-primary)] hover:bg-white/[0.03]"
                     }`}
                   >
                     {ex}

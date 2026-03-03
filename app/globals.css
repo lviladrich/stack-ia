@@ -56,7 +56,7 @@ body {
 /* Smooth transitions — only on interactive elements */
 a, button, input, textarea, select, [role="button"] {
   transition-property: background-color, border-color, color, opacity, transform, box-shadow;
-  transition-duration: 200ms;
+  transition-duration: 120ms;
   transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
