@@ -94,10 +94,9 @@ export default function Home() {
       {/* Background ambient lights */}
       {!results && !isLoading && (
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-[-25%] left-1/2 -translate-x-1/2 w-[1100px] h-[800px] rounded-full bg-purple-600/[0.07] blur-[200px]" />
-          <div className="absolute top-[0%] left-[10%] w-[500px] h-[500px] rounded-full bg-violet-500/[0.06] blur-[150px]" />
-          <div className="absolute top-[-5%] right-[10%] w-[450px] h-[450px] rounded-full bg-fuchsia-500/[0.04] blur-[140px]" />
-          <div className="absolute top-[40%] left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-purple-400/[0.03] blur-[120px]" />
+          <div className="absolute top-[-25%] left-1/2 -translate-x-1/2 w-[1100px] h-[800px] rounded-full bg-purple-600/[0.07] blur-[80px]" />
+          <div className="absolute top-[0%] left-[10%] w-[500px] h-[500px] rounded-full bg-violet-500/[0.06] blur-[60px]" />
+          <div className="absolute top-[-5%] right-[10%] w-[450px] h-[450px] rounded-full bg-fuchsia-500/[0.04] blur-[60px]" />
         </div>
       )}
 
