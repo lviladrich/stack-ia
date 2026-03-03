@@ -172,7 +172,7 @@ export default function Home() {
           <div className="max-w-3xl mx-auto px-6 pb-16">
             <div className="grid sm:grid-cols-3 gap-3">
               {FEATURES.map((f, i) => (
-                <div key={i} className="glass rounded-2xl p-5 group hover:border-purple-500/20">
+                <div key={i} className="glass rounded-2xl p-5">
                   <div className="text-purple-400 mb-3">
                     {f.icon}
                   </div>
