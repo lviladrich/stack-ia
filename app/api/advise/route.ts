@@ -11,48 +11,36 @@ async function generateJustificationText(
   projectPrompt: string
 ): Promise<string> {
   const tool = rec.recommended_tool.tool;
-  const ej = rec.recommended_tool.enhanced_justification;
-  const benchmarks = ej?.benchmark_citations || [];
-  const alt = rec.alternatives?.[0];
 
   const papersContext = papers.map((p: any) =>
-    `- "${p.title}" (${p.venue}): ${p.key_finding}`
+    `- "${p.title}" (${p.authors}, ${p.venue}): ${p.key_finding}. Implicacion: ${p.implication}`
   ).join("\n");
 
   const evidenceContext = evidence.map((e: any) =>
     `- ${e.title}: ${e.key_data}`
   ).join("\n");
 
-  const altContext = alt
-    ? `Alternativa: ${alt.tool.name} (score ${(alt.final_score * 10).toFixed(1)}/10).`
-    : "";
+  const prompt = `Explica en 2-3 oraciones por que ${tool.name} es la mejor opcion para "${rec.capability_name}" en este proyecto: "${projectPrompt}".
 
-  const prompt = `Genera una justificacion de 2-3 oraciones sobre por que ${tool.name} es la mejor herramienta para "${rec.capability_name}" en un proyecto descrito como: "${projectPrompt}".
+Fortalezas de ${tool.name}: ${tool.strengths.join(", ")}
 
-Datos del tool:
-- Score: ${(rec.recommended_tool.final_score * 10).toFixed(1)}/10
-- Fortalezas: ${tool.strengths.join(", ")}
-- Benchmarks: ${benchmarks.join(", ") || "N/A"}
-${altContext}
-
-Papers academicos relevantes:
+Papers academicos que respaldan esta eleccion:
 ${papersContext || "Ninguno"}
 
-Evidencia tecnica:
+Evidencia tecnica de la empresa:
 ${evidenceContext || "Ninguna"}
 
 REGLAS:
-- Combina teoria actualizada con datos de los papers
-- Cita al menos un paper o benchmark especifico
-- Se conciso y directo, maximo 3 oraciones
-- No uses frases como "segun los datos" o "basandonos en"
-- Escribe en espanol
-- NO uses markdown, solo texto plano`;
+- Explica la teoria de POR QUE esta herramienta funciona mejor (ej: arquitectura agentica, RAG, RLHF, chain-of-thought, etc.)
+- Menciona hallazgos concretos de los papers (ej: "logra 12.5% en SWE-bench gracias a su interfaz agentica")
+- NO menciones scores numericos internos, ni "expert score", ni puntajes del sistema
+- Habla como un experto explicando a otro dev, no como un reporte
+- Maximo 3 oraciones, espanol, texto plano sin markdown`;
 
   return askClaude(
-    "Eres un experto en herramientas de IA para desarrollo de software. Generas justificaciones tecnicas breves y precisas.",
+    "Eres un investigador en IA aplicada al desarrollo de software. Explicas conceptos tecnicos de forma clara citando papers reales.",
     prompt,
-    { maxTokens: 300, temperature: 0.4 }
+    { maxTokens: 300, temperature: 0.5 }
   );
 }
 

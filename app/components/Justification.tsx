@@ -42,7 +42,6 @@ export default function Justification({ recommendations }: JustificationProps) {
       <div className="space-y-4">
         {recommendations.map((rec, i) => {
           const t = rec.recommended_tool;
-          const ej = t.enhanced_justification;
           const papers = rec.papers || [];
           const evidence = rec.evidence || [];
           const aiJustification = rec.ai_justification || "";
@@ -56,11 +55,6 @@ export default function Justification({ recommendations }: JustificationProps) {
                   <div className="flex items-center gap-2.5">
                     <span className="font-semibold text-[15px] text-[var(--text-primary)]">{t.tool.name}</span>
                     <span className="text-[11px] text-[var(--text-muted)]">{rec.capability_name}</span>
-                    {ej?.cost_estimate && (
-                      <span className="ml-auto hidden sm:block font-mono text-[11px] text-[var(--text-muted)]">
-                        {ej.cost_estimate.estimated_monthly}
-                      </span>
-                    )}
                   </div>
                   {/* AI-generated justification */}
                   <p className="text-[13px] text-[var(--text-secondary)] mt-1.5 leading-[1.6]">
