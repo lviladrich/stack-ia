@@ -28,20 +28,14 @@ export default function ResultsView({ data }: ResultsViewProps) {
 
   return (
     <div className="space-y-10">
-      {/* Project summary */}
-      <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-lg p-5">
-        <div className="flex flex-wrap items-center gap-3">
-          <h2 className="text-lg font-bold">Tu Proyecto</h2>
-          <span className="px-2 py-0.5 bg-[var(--accent)]/20 text-[var(--accent-hover)] text-xs rounded-full font-medium">
-            {project.project_type}
-          </span>
-          <span className="px-2 py-0.5 bg-[var(--bg-secondary)] text-[var(--text-muted)] text-xs rounded-full">
-            {project.complexity}
-          </span>
-          <span className="text-xs text-[var(--text-muted)]">
-            {project.modules.length} modulos detectados
-          </span>
-        </div>
+      {/* Project summary — minimal */}
+      <div className="flex items-center gap-2 text-[13px] text-[var(--text-muted)]">
+        <span className="px-2.5 py-1 bg-purple-500/10 text-purple-400 rounded-full font-medium text-[12px]">
+          {project.project_type}
+        </span>
+        <span>{project.complexity}</span>
+        <span>·</span>
+        <span>{project.modules.length} modulos</span>
       </div>
 
       {/* Stack table */}
