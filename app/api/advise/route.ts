@@ -20,27 +20,20 @@ async function generateJustificationText(
     `- ${e.title}: ${e.key_data}`
   ).join("\n");
 
-  const prompt = `Explica en 2-3 oraciones por que ${tool.name} es la mejor opcion para "${rec.capability_name}" en este proyecto: "${projectPrompt}".
+  const prompt = `Por que ${tool.name} para "${rec.capability_name}" en: "${projectPrompt}".
 
-Fortalezas de ${tool.name}: ${tool.strengths.join(", ")}
-
-Papers academicos que respaldan esta eleccion:
-${papersContext || "Ninguno"}
-
-Evidencia tecnica de la empresa:
-${evidenceContext || "Ninguna"}
+Fortalezas: ${tool.strengths.slice(0, 2).join(", ")}
 
 REGLAS:
-- Explica la teoria de POR QUE esta herramienta funciona mejor (ej: arquitectura agentica, RAG, RLHF, chain-of-thought, etc.)
-- Menciona hallazgos concretos de los papers (ej: "logra 12.5% en SWE-bench gracias a su interfaz agentica")
-- NO menciones scores numericos internos, ni "expert score", ni puntajes del sistema
-- Habla como un experto explicando a otro dev, no como un reporte
-- Maximo 3 oraciones, espanol, texto plano sin markdown`;
+- Maximo 2 oraciones, directo al punto
+- Di POR QUE sirve para ESTE proyecto concreto, no teoria general
+- Tono: dev senior hablando a otro dev senior
+- Espanol, texto plano, sin markdown ni listas`;
 
   return askClaude(
     "Eres un investigador en IA aplicada al desarrollo de software. Explicas conceptos tecnicos de forma clara citando papers reales.",
     prompt,
-    { maxTokens: 300, temperature: 0.5 }
+    { maxTokens: 150, temperature: 0.4 }
   );
 }
 

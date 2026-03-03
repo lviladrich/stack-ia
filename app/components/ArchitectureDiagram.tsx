@@ -1,5 +1,7 @@
 "use client";
 
+import { memo, useMemo } from "react";
+
 interface ArchNode {
   id: string;
   tool_name: string;
@@ -30,87 +32,129 @@ const CAT_ACCENT: Record<string, string> = {
 };
 
 const CAT_LABEL: Record<string, string> = {
-  planning: "Plan",
-  design: "Design",
-  implementation: "Build",
-  testing: "Test",
-  deployment: "Deploy",
+  planning: "PLAN",
+  design: "DESIGN",
+  implementation: "BUILD",
+  testing: "TEST",
+  deployment: "DEPLOY",
+  documentation: "DOCS",
+};
+
+const CAT_CHIP: Record<string, string> = {
+  planning: "Specs",
+  design: "Assets",
+  implementation: "Code",
+  testing: "QA",
+  deployment: "Infra",
   documentation: "Docs",
 };
 
-export default function ArchitectureDiagram({ diagram }: ArchitectureDiagramProps) {
+export default memo(function ArchitectureDiagram({ diagram }: ArchitectureDiagramProps) {
   if (!diagram || diagram.nodes.length === 0) return null;
 
-  const categories = ["planning", "design", "implementation", "testing", "deployment", "documentation"];
-  const grouped: Record<string, ArchNode[]> = {};
-  for (const cat of categories) {
-    const nodes = diagram.nodes.filter((n) => n.category === cat);
-    if (nodes.length > 0) grouped[cat] = nodes;
-  }
-  const activeCats = Object.keys(grouped);
+  const { activeCats, grouped } = useMemo(() => {
+    const categories = ["planning", "design", "implementation", "testing", "deployment", "documentation"];
+    const g: Record<string, ArchNode[]> = {};
+    for (const cat of categories) {
+      const nodes = diagram.nodes.filter((n) => n.category === cat);
+      if (nodes.length > 0) g[cat] = nodes;
+    }
+    return { activeCats: Object.keys(g), grouped: g };
+  }, [diagram.nodes]);
 
   return (
     <div className="space-y-5 animate-fade-up delay-1">
       <h2 className="text-2xl font-semibold tracking-tight">Arquitectura</h2>
 
-      <div className="glass rounded-2xl p-6">
-        {/* Flow — horizontal on desktop, vertical on mobile */}
-        <div className="flex flex-col md:flex-row md:items-start gap-3 md:gap-0">
+      <div className="rounded-2xl p-8 overflow-x-auto" style={{ background: 'linear-gradient(135deg, #080808 0%, #111111 50%, #0a0a0a 100%)', border: '1px solid rgba(255,255,255,0.06)' }}>
+        {/* Desktop: horizontal pipeline */}
+        <div className="hidden md:flex items-stretch gap-0">
           {activeCats.map((cat, ci) => {
             const nodes = grouped[cat];
-            const accent = CAT_ACCENT[cat] || "var(--text-muted)";
+            const accent = CAT_ACCENT[cat] || "#666";
+            const firstNode = nodes[0];
 
             return (
-              <div key={cat} className="flex items-center md:flex-1">
-                {/* Node group */}
-                <div className="flex-1 md:flex-initial">
-                  <div className="text-[10px] uppercase tracking-widest font-medium mb-2" style={{ color: accent }}>
-                    {CAT_LABEL[cat] || cat}
+              <div key={cat} className="flex items-stretch flex-1 min-w-0">
+                {/* Column */}
+                <div className="flex-1 px-5 py-4 flex flex-col">
+                  {/* Phase label */}
+                  <div
+                    className="text-[11px] font-bold uppercase tracking-[0.2em] mb-4"
+                    style={{ color: accent }}
+                  >
+                    {CAT_LABEL[cat]}
                   </div>
-                  {nodes.map((node) => {
-                    const outEdges = diagram.edges.filter((e) => e.from === node.id);
-                    return (
-                      <div key={`${node.id}-${node.capability_id}`} className="mb-1.5 last:mb-0">
-                        <div className="text-[13px] font-semibold text-[var(--text-primary)]">{node.tool_name}</div>
-                        <div className="text-[10px] text-[var(--text-muted)]">{node.capability_name}</div>
-                        {outEdges.length > 0 && (
-                          <div className="flex flex-wrap gap-1 mt-1">
-                            {outEdges.map((e, ei) => (
-                              <span
-                                key={ei}
-                                className={`text-[8px] px-1.5 py-0.5 rounded-full ${
-                                  e.type === "feedback"
-                                    ? "text-[var(--warning)]/70 border border-[var(--warning)]/15"
-                                    : "text-[var(--text-muted)]/60 border border-[var(--border)]"
-                                }`}
-                              >
-                                {e.label}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
+
+                  {/* Tool name */}
+                  <div className="text-[15px] font-semibold text-[var(--text-primary)] mb-1.5">
+                    {firstNode.tool_name}
+                  </div>
+
+                  {/* Capability */}
+                  <div className="text-[12px] text-[var(--text-secondary)] leading-relaxed mb-3">
+                    {firstNode.capability_name}
+                  </div>
+
+                  {/* Extra nodes if any */}
+                  {nodes.length > 1 && nodes.slice(1).map((node) => (
+                    <div key={node.id} className="mt-2 pt-2 border-t border-white/[0.04]">
+                      <div className="text-[13px] font-semibold text-[var(--text-primary)]">{node.tool_name}</div>
+                      <div className="text-[11px] text-[var(--text-muted)]">{node.capability_name}</div>
+                    </div>
+                  ))}
+
+                  {/* Chip */}
+                  <div className="mt-auto pt-3">
+                    <span
+                      className="inline-block text-[9px] font-medium uppercase tracking-wider px-2.5 py-1 rounded-full"
+                      style={{ color: accent, background: `${accent}15`, border: `1px solid ${accent}20` }}
+                    >
+                      {CAT_CHIP[cat]}
+                    </span>
+                  </div>
                 </div>
 
-                {/* Arrow between groups */}
+                {/* Arrow separator */}
                 {ci < activeCats.length - 1 && (
-                  <>
-                    {/* Desktop: horizontal arrow */}
-                    <div className="hidden md:flex items-center px-3 pt-4">
-                      <div className="w-6 h-px bg-gradient-to-r from-[var(--border)] to-transparent" />
-                      <svg width="6" height="10" viewBox="0 0 6 10" className="text-[var(--text-muted)]/30 -ml-px">
-                        <path d="M0 0l6 5-6 5z" fill="currentColor" />
-                      </svg>
-                    </div>
-                    {/* Mobile: vertical arrow */}
-                    <div className="md:hidden flex justify-center">
-                      <svg width="10" height="12" viewBox="0 0 10 12" className="text-[var(--text-muted)]/20">
-                        <path d="M5 0v8M5 12l-4-4h8z" fill="currentColor" />
-                      </svg>
-                    </div>
-                  </>
+                  <div className="flex items-center px-1 shrink-0">
+                    <div className="w-5 h-px bg-white/[0.08]" />
+                    <svg width="5" height="8" viewBox="0 0 5 8" className="text-white/[0.15] -ml-px">
+                      <path d="M0 0l5 4-5 4z" fill="currentColor" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Mobile: vertical pipeline */}
+        <div className="md:hidden space-y-1">
+          {activeCats.map((cat, ci) => {
+            const nodes = grouped[cat];
+            const accent = CAT_ACCENT[cat] || "#666";
+            const firstNode = nodes[0];
+
+            return (
+              <div key={cat}>
+                <div className="flex items-start gap-4 py-4">
+                  {/* Phase label */}
+                  <div
+                    className="text-[10px] font-bold uppercase tracking-[0.15em] w-14 shrink-0 pt-0.5"
+                    style={{ color: accent }}
+                  >
+                    {CAT_LABEL[cat]}
+                  </div>
+
+                  <div className="flex-1">
+                    <div className="text-[14px] font-semibold text-[var(--text-primary)]">{firstNode.tool_name}</div>
+                    <div className="text-[12px] text-[var(--text-secondary)] mt-0.5">{firstNode.capability_name}</div>
+                  </div>
+                </div>
+
+                {ci < activeCats.length - 1 && (
+                  <div className="ml-6 h-3 border-l border-white/[0.06]" />
                 )}
               </div>
             );
@@ -119,4 +163,4 @@ export default function ArchitectureDiagram({ diagram }: ArchitectureDiagramProp
       </div>
     </div>
   );
-}
+});
