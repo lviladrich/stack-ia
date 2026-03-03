@@ -1,0 +1,410 @@
+{
+  "$schema": "ai-stack-advisor/evidence/v1",
+  "version": "1.0.0",
+  "last_updated": "2026-03-01",
+  "description": "First-party evidence: papers, technical reports, best practices and case studies from AI companies. Every recommendation links to its source.",
+
+  "companies": {
+    "anthropic": {
+      "name": "Anthropic",
+      "tools": ["claude_code", "claude_chat", "claude_docs", "claude_code_testing", "claude_code_devops", "claude_code_db"],
+      "evidence": [
+        {
+          "id": "anthropic_claude3_model_card",
+          "title": "The Claude 3 Model Family: Opus, Sonnet, Haiku",
+          "url": "https://www-cdn.anthropic.com/de8ba9b01c9ab7cbabf5c33b80b7bbc618857627/Model_Card_Claude_3.pdf",
+          "type": "technical_report",
+          "covers": "Capabilities, benchmarks, safety evaluations for Claude 3 family",
+          "key_data": "Baseline coding benchmarks and capability documentation",
+          "relevant_for": ["code_generation", "requirements_analysis"]
+        },
+        {
+          "id": "anthropic_opus4_system_card",
+          "title": "System Card: Claude Opus 4 & Claude Sonnet 4",
+          "url": "https://www-cdn.anthropic.com/4263b940cabb546aa0e3283f35b686f4f3b2ff47.pdf",
+          "type": "technical_report",
+          "covers": "Safety evaluations, ASL-3/ASL-2 classifications, capability assessments",
+          "key_data": "Justifies trust in Claude for production development environments",
+          "relevant_for": ["code_generation", "testing_qa"]
+        },
+        {
+          "id": "anthropic_claude_code_best_practices",
+          "title": "Claude Code: Best Practices for Agentic Coding",
+          "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
+          "type": "best_practices",
+          "covers": "Agentic coding workflows, CLAUDE.md files, prompt strategies",
+          "key_data": "Primary guide for using Claude as a coding agent",
+          "relevant_for": ["code_generation", "testing_qa", "devops_deploy"]
+        },
+        {
+          "id": "anthropic_prompt_engineering",
+          "title": "Prompt Engineering Overview",
+          "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+          "type": "best_practices",
+          "covers": "Comprehensive prompt engineering techniques for Claude",
+          "key_data": "Foundation for getting optimal code generation results",
+          "relevant_for": ["code_generation", "requirements_analysis", "documentation"]
+        },
+        {
+          "id": "anthropic_claude4_prompting",
+          "title": "Claude 4 Prompting Best Practices",
+          "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices",
+          "type": "best_practices",
+          "covers": "Tool use, thinking, agentic systems prompting",
+          "key_data": "Latest model-specific techniques for coding workflows",
+          "relevant_for": ["code_generation", "testing_qa"]
+        },
+        {
+          "id": "anthropic_teams_use_claude_code",
+          "title": "How Anthropic Teams Use Claude Code",
+          "url": "https://www.anthropic.com/news/how-anthropic-teams-use-claude-code",
+          "type": "case_study",
+          "covers": "Internal usage of Claude Code by Anthropic engineers",
+          "key_data": "First-party evidence of Claude Code effectiveness in real development",
+          "relevant_for": ["code_generation", "testing_qa", "devops_deploy"]
+        },
+        {
+          "id": "anthropic_enterprise_transformation",
+          "title": "How Enterprises Are Driving AI Transformation with Claude",
+          "url": "https://www.anthropic.com/news/driving-ai-transformation-with-claude",
+          "type": "case_study",
+          "covers": "Behavox, Altana (2-10x velocity), Novo Nordisk, Cox Automotive",
+          "key_data": "2-10x developer velocity, 70% faster for junior developers",
+          "relevant_for": ["code_generation", "requirements_analysis"]
+        },
+        {
+          "id": "anthropic_agent_sdk",
+          "title": "Building Agents with the Claude Agent SDK",
+          "url": "https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk",
+          "type": "documentation",
+          "covers": "Agent architecture, SDK patterns, orchestration",
+          "key_data": "Foundation for building development automation tools",
+          "relevant_for": ["code_generation", "devops_deploy"]
+        }
+      ]
+    },
+
+    "openai": {
+      "name": "OpenAI",
+      "tools": ["chatgpt", "chatgpt_planning", "dall_e"],
+      "evidence": [
+        {
+          "id": "openai_gpt4_technical_report",
+          "title": "GPT-4 Technical Report",
+          "url": "https://cdn.openai.com/papers/gpt-4.pdf",
+          "type": "technical_report",
+          "covers": "Multimodal capabilities, professional/academic benchmarks, safety",
+          "key_data": "Foundational capability documentation for GPT-4 code generation",
+          "relevant_for": ["code_generation", "requirements_analysis"]
+        },
+        {
+          "id": "openai_codex_system_card",
+          "title": "GPT-5.2-Codex System Card",
+          "url": "https://cdn.openai.com/pdf/ac7c37ae-7f4c-4442-b741-2eabdeaf77e0/oai_5_2_Codex.pdf",
+          "type": "technical_report",
+          "covers": "Codex agent capabilities, safety measures, coding benchmarks",
+          "key_data": "Documents the cloud coding agent capabilities",
+          "relevant_for": ["code_generation", "testing_qa"]
+        },
+        {
+          "id": "openai_code_generation_guide",
+          "title": "Code Generation Guide",
+          "url": "https://platform.openai.com/docs/guides/code-generation",
+          "type": "best_practices",
+          "covers": "Code generation options, Codex agents, IDE/CLI/CI-CD integration",
+          "key_data": "Primary guide for using OpenAI models for code generation",
+          "relevant_for": ["code_generation"]
+        },
+        {
+          "id": "openai_prompt_engineering",
+          "title": "Prompt Engineering Guide",
+          "url": "https://platform.openai.com/docs/guides/prompt-engineering",
+          "type": "best_practices",
+          "covers": "Six strategies for better results, structured outputs",
+          "key_data": "Foundation for effective code prompting",
+          "relevant_for": ["code_generation", "requirements_analysis"]
+        },
+        {
+          "id": "openai_cookbook",
+          "title": "OpenAI Cookbook",
+          "url": "https://platform.openai.com/docs/cookbooks",
+          "type": "documentation",
+          "covers": "Practical examples, integration patterns, use cases",
+          "key_data": "Hands-on code examples and patterns",
+          "relevant_for": ["code_generation", "documentation"]
+        },
+        {
+          "id": "openai_dalle3_paper",
+          "title": "DALL-E 3 Technical Paper",
+          "url": "https://cdn.openai.com/papers/dall-e-3.pdf",
+          "type": "paper",
+          "covers": "Image generation architecture, caption improvements",
+          "key_data": "Technical basis for DALL-E 3 prompt adherence",
+          "relevant_for": ["visual_assets"]
+        },
+        {
+          "id": "openai_image_generation_guide",
+          "title": "Image Generation API Guide",
+          "url": "https://platform.openai.com/docs/guides/image-generation",
+          "type": "best_practices",
+          "covers": "API parameters, best practices, integration",
+          "key_data": "Primary developer reference for DALL-E integration",
+          "relevant_for": ["visual_assets"]
+        }
+      ]
+    },
+
+    "google": {
+      "name": "Google DeepMind",
+      "tools": ["gemini_code", "gemini_planning"],
+      "evidence": [
+        {
+          "id": "google_gemini_paper",
+          "title": "Gemini: A Family of Highly Capable Multimodal Models",
+          "url": "https://arxiv.org/abs/2312.11805",
+          "type": "paper",
+          "covers": "Ultra/Pro/Nano capabilities, SOTA on 30/32 benchmarks",
+          "key_data": "First model to achieve human-expert MMLU performance",
+          "relevant_for": ["code_generation", "requirements_analysis"]
+        },
+        {
+          "id": "google_gemini15_paper",
+          "title": "Gemini 1.5: Unlocking Multimodal Understanding Across Millions of Tokens",
+          "url": "https://arxiv.org/abs/2403.05530",
+          "type": "paper",
+          "covers": "Million-token context, Pro and Flash variants",
+          "key_data": "Enables analysis of entire large codebases in single context",
+          "relevant_for": ["code_generation", "requirements_analysis", "documentation"]
+        },
+        {
+          "id": "google_gemini25_report",
+          "title": "Gemini 2.5: Pushing the Frontier with Advanced Reasoning",
+          "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_v2_5_report.pdf",
+          "type": "technical_report",
+          "covers": "SOTA on coding/reasoning benchmarks, thinking model",
+          "key_data": "Advanced reasoning for complex coding tasks",
+          "relevant_for": ["code_generation", "requirements_analysis"]
+        },
+        {
+          "id": "google_coding_agents_guide",
+          "title": "Set Up Your Coding Agent (Gemini API)",
+          "url": "https://ai.google.dev/gemini-api/docs/coding-agents",
+          "type": "documentation",
+          "covers": "Coding agent setup, API documentation",
+          "key_data": "Direct guide for using Gemini as a coding agent",
+          "relevant_for": ["code_generation"]
+        },
+        {
+          "id": "google_code_execution",
+          "title": "Code Execution (Gemini API)",
+          "url": "https://ai.google.dev/gemini-api/docs/code-execution",
+          "type": "documentation",
+          "covers": "Code execution capabilities, supported file types",
+          "key_data": "Enables Gemini to run and validate code",
+          "relevant_for": ["code_generation", "testing_qa"]
+        }
+      ]
+    },
+
+    "vercel": {
+      "name": "Vercel",
+      "tools": ["v0", "vercel_platform"],
+      "evidence": [
+        {
+          "id": "vercel_v0_announcement",
+          "title": "Announcing v0: Generative UI",
+          "url": "https://vercel.com/blog/announcing-v0-generative-ui",
+          "type": "documentation",
+          "covers": "v0 launch, React/Shadcn UI/Tailwind generation",
+          "key_data": "Foundational product capability documentation",
+          "relevant_for": ["ui_generation"]
+        },
+        {
+          "id": "vercel_v0_effective_agent",
+          "title": "How We Made v0 an Effective Coding Agent",
+          "url": "https://vercel.com/blog/how-we-made-v0-an-effective-coding-agent",
+          "type": "technical_report",
+          "covers": "Agent architecture, technical decisions, effectiveness metrics",
+          "key_data": "Technical depth on v0 agent capabilities",
+          "relevant_for": ["ui_generation"]
+        },
+        {
+          "id": "vercel_v0_composite_model",
+          "title": "Introducing the v0 Composite Model Family",
+          "url": "https://vercel.com/blog/v0-composite-model-family",
+          "type": "technical_report",
+          "covers": "RAG, LLM reasoning, streaming post-processing architecture",
+          "key_data": "Documents v0 unique multi-model architecture",
+          "relevant_for": ["ui_generation"]
+        },
+        {
+          "id": "vercel_v0_best_practices",
+          "title": "Maximizing Outputs with v0",
+          "url": "https://vercel.com/blog/maximizing-outputs-with-v0-from-ui-generation-to-code-creation",
+          "type": "best_practices",
+          "covers": "Tips for UI generation, code creation best practices",
+          "key_data": "Primary best practices guide for v0",
+          "relevant_for": ["ui_generation"]
+        },
+        {
+          "id": "vercel_v0_platform_api",
+          "title": "v0 Platform API",
+          "url": "https://vercel.com/blog/build-your-own-ai-app-builder-with-the-v0-platform-api",
+          "type": "documentation",
+          "covers": "Text-to-app API, composable interface for developers",
+          "key_data": "API-level integration documentation",
+          "relevant_for": ["ui_generation", "devops_deploy"]
+        }
+      ]
+    },
+
+    "github": {
+      "name": "GitHub",
+      "tools": ["github_copilot", "copilot_testing"],
+      "evidence": [
+        {
+          "id": "github_copilot_productivity_study",
+          "title": "Research: Quantifying GitHub Copilot's Impact on Developer Productivity and Happiness",
+          "url": "https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/",
+          "type": "paper",
+          "covers": "SPACE framework analysis, mental energy, satisfaction metrics",
+          "key_data": "Primary productivity study using validated framework",
+          "relevant_for": ["code_generation"]
+        },
+        {
+          "id": "github_copilot_accenture",
+          "title": "Research: Quantifying GitHub Copilot's Impact in the Enterprise with Accenture",
+          "url": "https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-in-the-enterprise-with-accenture/",
+          "type": "case_study",
+          "covers": "Enterprise study at Accenture scale",
+          "key_data": "55% faster coding, 85% more confident, 96% adoption success",
+          "relevant_for": ["code_generation"]
+        },
+        {
+          "id": "github_copilot_code_quality",
+          "title": "Research: Quantifying GitHub Copilot's Impact on Code Quality",
+          "url": "https://github.blog/2023-10-10-research-quantifying-github-copilots-impact-on-code-quality/",
+          "type": "paper",
+          "covers": "Code quality with AI assistance",
+          "key_data": "53.2% greater likelihood of passing all unit tests",
+          "relevant_for": ["code_generation", "testing_qa"]
+        },
+        {
+          "id": "github_copilot_economic_impact",
+          "title": "The Economic Impact of the AI-Powered Developer Lifecycle",
+          "url": "https://github.blog/news-insights/research/the-economic-impact-of-the-ai-powered-developer-lifecycle-and-lessons-from-github-copilot/",
+          "type": "paper",
+          "covers": "Global GDP impact, economic modeling",
+          "key_data": "$1.5T potential global GDP impact",
+          "relevant_for": ["code_generation"]
+        },
+        {
+          "id": "github_copilot_best_practices",
+          "title": "Best Practices for Using GitHub Copilot",
+          "url": "https://docs.github.com/en/copilot/get-started/best-practices",
+          "type": "best_practices",
+          "covers": "Prompt rephrasing, breaking requests into smaller parts",
+          "key_data": "Primary best practices reference",
+          "relevant_for": ["code_generation"]
+        },
+        {
+          "id": "github_copilot_agent_best_practices",
+          "title": "Best Practices for Copilot Coding Agent",
+          "url": "https://docs.github.com/copilot/how-tos/agents/copilot-coding-agent/best-practices-for-using-copilot-to-work-on-tasks",
+          "type": "best_practices",
+          "covers": "Clear task scoping, problem descriptions for agent mode",
+          "key_data": "Agent-specific workflow guidance",
+          "relevant_for": ["code_generation", "testing_qa"]
+        }
+      ]
+    },
+
+    "cursor": {
+      "name": "Cursor (Anysphere)",
+      "tools": ["cursor"],
+      "evidence": [
+        {
+          "id": "cursor_composer_benchmark",
+          "title": "Cursor Composer & CursorBench",
+          "url": "https://cursor.com/blog/composer",
+          "type": "technical_report",
+          "covers": "CursorBench benchmark, real engineer requests",
+          "key_data": "4x faster than comparable models on real engineering tasks",
+          "relevant_for": ["code_generation"]
+        },
+        {
+          "id": "cursor_features",
+          "title": "Cursor Features",
+          "url": "https://cursor.com/features",
+          "type": "documentation",
+          "covers": "Tab completion, Agent, multi-model support",
+          "key_data": "Feature-level capability documentation",
+          "relevant_for": ["code_generation"]
+        },
+        {
+          "id": "cursor_agents",
+          "title": "Cursor Agents",
+          "url": "https://cursor.com/agents",
+          "type": "documentation",
+          "covers": "Long-running agents, autonomous codebase learning",
+          "key_data": "Documents agentic capabilities for complex tasks",
+          "relevant_for": ["code_generation"]
+        }
+      ]
+    },
+
+    "midjourney": {
+      "name": "Midjourney",
+      "tools": ["midjourney"],
+      "evidence": [
+        {
+          "id": "midjourney_docs",
+          "title": "Midjourney Documentation Hub",
+          "url": "https://docs.midjourney.com/",
+          "type": "documentation",
+          "covers": "Complete user guide, tools, features, troubleshooting",
+          "key_data": "Primary reference for all Midjourney capabilities",
+          "relevant_for": ["visual_assets"]
+        },
+        {
+          "id": "midjourney_parameters",
+          "title": "Parameter List",
+          "url": "https://docs.midjourney.com/hc/en-us/articles/32859204029709-Parameter-List",
+          "type": "best_practices",
+          "covers": "All available parameters for controlling image generation",
+          "key_data": "Essential reference for consistent high-quality outputs",
+          "relevant_for": ["visual_assets"]
+        },
+        {
+          "id": "midjourney_character_ref",
+          "title": "Character Reference",
+          "url": "https://docs.midjourney.com/hc/en-us/articles/32162917505293-Character-Reference",
+          "type": "best_practices",
+          "covers": "Maintaining character consistency across images",
+          "key_data": "Relevant for UI/UX design consistency and branding",
+          "relevant_for": ["visual_assets"]
+        }
+      ]
+    }
+  },
+
+  "evidence_summary": {
+    "total_sources": 46,
+    "by_type": {
+      "technical_report": 10,
+      "paper": 8,
+      "best_practices": 14,
+      "case_study": 4,
+      "documentation": 10
+    },
+    "key_metrics_from_evidence": {
+      "claude_code_enterprise_velocity": "2-10x developer velocity (Anthropic case study)",
+      "claude_code_junior_speed": "70% faster for junior developers (Cox Automotive)",
+      "copilot_coding_speed": "55% faster coding (Accenture study)",
+      "copilot_test_pass_rate": "53.2% greater likelihood of passing unit tests (GitHub research)",
+      "copilot_adoption_rate": "96% adoption success at enterprise scale (Accenture)",
+      "cursor_benchmark_speed": "4x faster than comparable models (CursorBench)",
+      "copilot_economic_impact": "$1.5T potential global GDP impact (GitHub research)"
+    }
+  }
+}

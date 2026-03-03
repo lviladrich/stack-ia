@@ -1,0 +1,706 @@
+{
+  "$schema": "ai-stack-advisor/registry/v1",
+  "version": "1.0.0",
+  "last_updated": "2026-03-01",
+  "description": "AI Stack Advisor - Capability Registry. Maps development capabilities to optimal AI tools with benchmark-backed scores.",
+
+  "data_sources": {
+    "automated": [
+      {
+        "id": "artificial_analysis",
+        "name": "Artificial Analysis",
+        "url": "https://artificialanalysis.ai",
+        "api": "https://artificialanalysis.ai/documentation",
+        "provides": ["intelligence_score", "speed_tps", "latency_ttft", "pricing"],
+        "update_frequency": "daily",
+        "free_tier": "1000 req/day"
+      },
+      {
+        "id": "openrouter",
+        "name": "OpenRouter",
+        "url": "https://openrouter.ai",
+        "api": "https://openrouter.ai/docs/api/reference/overview",
+        "provides": ["model_catalog", "pricing", "availability", "usage_rankings"],
+        "update_frequency": "real_time"
+      },
+      {
+        "id": "swe_bench",
+        "name": "SWE-bench Verified",
+        "url": "https://www.swebench.com",
+        "provides": ["bug_fix_pass_rate", "real_world_engineering_score"],
+        "update_frequency": "monthly"
+      },
+      {
+        "id": "aider",
+        "name": "Aider Polyglot Leaderboard",
+        "url": "https://aider.chat/docs/leaderboards",
+        "provides": ["code_editing_score", "per_language_scores"],
+        "update_frequency": "on_model_release"
+      },
+      {
+        "id": "bigcodebench",
+        "name": "BigCodeBench",
+        "url": "https://bigcode-bench.github.io",
+        "provides": ["code_generation_score", "library_usage_score"],
+        "update_frequency": "periodic"
+      },
+      {
+        "id": "arena",
+        "name": "Arena (ex-LMSYS Chatbot Arena)",
+        "url": "https://lmarena.ai",
+        "provides": ["elo_rating", "coding_elo", "reasoning_elo", "hard_prompts_elo"],
+        "update_frequency": "weekly"
+      }
+    ],
+    "curated": [
+      {
+        "id": "expert_review",
+        "name": "AI Stack Advisor Expert Curation",
+        "provides": ["tool_scores_for_non_llm_tools", "gap_coverage", "workflow_compatibility"],
+        "update_frequency": "biweekly",
+        "freshness_decay_days": 30
+      }
+    ]
+  },
+
+  "capabilities": [
+    {
+      "id": "code_generation",
+      "name": "Generacion de Codigo",
+      "description": "Generar codigo funcional a partir de requerimientos en lenguaje natural. Incluye backend, frontend, APIs, scripts y logica de negocio.",
+      "sdlc_phase": "implementation",
+      "benchmark_sources": ["swe_bench", "aider", "bigcodebench", "arena.coding_elo"],
+      "tools": [
+        {
+          "id": "claude_code",
+          "name": "Claude Code (Anthropic)",
+          "type": "ai_coding_agent",
+          "strengths": [
+            "Razonamiento complejo multi-archivo",
+            "Arquitectura de sistemas completos",
+            "Edicion precisa de codigo existente",
+            "Terminal integrado con ejecucion real",
+            "Agentic workflow (planifica, ejecuta, valida)"
+          ],
+          "weaknesses": [
+            "Requiere CLI (no tiene UI visual nativa)",
+            "Costo alto en uso intensivo sin cache"
+          ],
+          "best_for": ["backend", "full_stack", "refactoring", "complex_logic", "multi_file_changes"],
+          "scores": {
+            "swe_bench_verified": 0.75,
+            "aider_polyglot": 0.82,
+            "arena_coding_elo": 1503,
+            "expert_score": 9.5
+          },
+          "pricing_model": "token_based",
+          "access": "cli",
+          "updated": "2026-03-01"
+        },
+        {
+          "id": "cursor",
+          "name": "Cursor",
+          "type": "ai_ide",
+          "strengths": [
+            "IDE completo con AI integrada",
+            "Tab completion contextual",
+            "Chat inline con codebase awareness",
+            "Soporte multi-modelo (Claude, GPT, etc.)",
+            "Baja curva de aprendizaje"
+          ],
+          "weaknesses": [
+            "Menos autonomo que Claude Code en tareas complejas",
+            "Dependencia del IDE propietario"
+          ],
+          "best_for": ["rapid_prototyping", "frontend", "learning", "pair_programming"],
+          "scores": {
+            "expert_score": 8.5
+          },
+          "pricing_model": "subscription",
+          "access": "ide",
+          "updated": "2026-03-01"
+        },
+        {
+          "id": "github_copilot",
+          "name": "GitHub Copilot",
+          "type": "ai_coding_assistant",
+          "strengths": [
+            "Integrado en VS Code y JetBrains",
+            "Autocompletado rapido en linea",
+            "Copilot Workspace para planificacion",
+            "Ecosistema GitHub (PRs, Issues, Actions)"
+          ],
+          "weaknesses": [
+            "Menos potente en razonamiento complejo",
+            "Menor calidad en refactoring de sistemas grandes"
+          ],
+          "best_for": ["autocompletion", "boilerplate", "github_workflow", "team_environments"],
+          "scores": {
+            "expert_score": 7.5
+          },
+          "pricing_model": "subscription",
+          "access": "ide_extension",
+          "updated": "2026-03-01"
+        },
+        {
+          "id": "chatgpt",
+          "name": "ChatGPT (OpenAI)",
+          "type": "ai_chat",
+          "strengths": [
+            "Interfaz familiar y accesible",
+            "Bueno para snippets y explicaciones",
+            "Canvas para edicion visual de codigo",
+            "Gran base de conocimiento general"
+          ],
+          "weaknesses": [
+            "No ejecuta codigo en entorno real del usuario",
+            "No tiene acceso a tu codebase",
+            "Inferior en tareas multi-archivo complejas"
+          ],
+          "best_for": ["learning", "snippets", "explanations", "quick_prototypes"],
+          "scores": {
+            "arena_coding_elo": 1420,
+            "expert_score": 7.0
+          },
+          "pricing_model": "subscription_or_token",
+          "access": "web_chat",
+          "updated": "2026-03-01"
+        },
+        {
+          "id": "gemini_code",
+          "name": "Gemini Code Assist (Google)",
+          "type": "ai_coding_assistant",
+          "strengths": [
+            "Ventana de contexto masiva (1M+ tokens)",
+            "Integracion con Google Cloud",
+            "Bueno para analisis de codebases enormes"
+          ],
+          "weaknesses": [
+            "Ecosistema menos maduro que Copilot/Cursor",
+            "Menor adopcion = menos comunidad"
+          ],
+          "best_for": ["large_codebase_analysis", "google_cloud_projects", "long_context_tasks"],
+          "scores": {
+            "arena_coding_elo": 1500,
+            "expert_score": 8.0
+          },
+          "pricing_model": "subscription_or_token",
+          "access": "ide_extension",
+          "updated": "2026-03-01"
+        }
+      ]
+    },
+
+    {
+      "id": "ui_generation",
+      "name": "Generacion de UI/Frontend",
+      "description": "Generar interfaces de usuario, componentes, layouts y paginas completas a partir de descripciones o mockups.",
+      "sdlc_phase": "implementation_frontend",
+      "benchmark_sources": ["expert_review"],
+      "tools": [
+        {
+          "id": "v0",
+          "name": "v0 (Vercel)",
+          "type": "ai_ui_generator",
+          "strengths": [
+            "Genera componentes React/Next.js production-ready",
+            "Usa shadcn/ui y Tailwind nativamente",
+            "Iteracion conversacional sobre el diseno",
+            "Preview en vivo del resultado",
+            "Deploy directo a Vercel"
+          ],
+          "weaknesses": [
+            "Limitado a ecosistema React/Next.js",
+            "No genera backend"
+          ],
+          "best_for": ["landing_pages", "dashboards", "component_libraries", "rapid_ui_prototyping"],
+          "scores": {
+            "expert_score": 9.0
+          },
+          "pricing_model": "freemium",
+          "access": "web",
+          "updated": "2026-03-01"
+        },
+        {
+          "id": "bolt",
+          "name": "Bolt.new (StackBlitz)",
+          "type": "ai_fullstack_generator",
+          "strengths": [
+            "Genera frontend + backend en entorno WebContainer",
+            "Multiples frameworks (React, Vue, Svelte, etc.)",
+            "Ejecucion en browser sin setup local",
+            "Iteracion rapida"
+          ],
+          "weaknesses": [
+            "Calidad inferior a v0 en componentes UI refinados",
+            "WebContainer tiene limitaciones de runtime"
+          ],
+          "best_for": ["full_stack_prototypes", "multi_framework", "quick_demos"],
+          "scores": {
+            "expert_score": 7.5
+          },
+          "pricing_model": "freemium",
+          "access": "web",
+          "updated": "2026-03-01"
+        },
+        {
+          "id": "lovable",
+          "name": "Lovable (ex-GPT Engineer)",
+          "type": "ai_app_generator",
+          "strengths": [
+            "Genera apps completas con Supabase backend",
+            "Buena integracion de auth y base de datos",
+            "UI atractiva por defecto"
+          ],
+          "weaknesses": [
+            "Menos control fino sobre componentes",
+            "Atado a Supabase como backend"
+          ],
+          "best_for": ["mvp_generation", "saas_prototypes", "non_technical_founders"],
+          "scores": {
+            "expert_score": 7.0
+          },
+          "pricing_model": "subscription",
+          "access": "web",
+          "updated": "2026-03-01"
+        }
+      ]
+    },
+
+    {
+      "id": "requirements_analysis",
+      "name": "Analisis de Requerimientos y Planificacion",
+      "description": "Descomponer necesidades de negocio en requerimientos tecnicos, definir alcance, historias de usuario, y criterios de aceptacion.",
+      "sdlc_phase": "planning",
+      "benchmark_sources": ["arena.reasoning_elo", "arena.hard_prompts_elo"],
+      "tools": [
+        {
+          "id": "claude_chat",
+          "name": "Claude (Anthropic) - Chat",
+          "type": "ai_reasoning",
+          "strengths": [
+            "Razonamiento profundo y estructurado",
+            "Extended thinking para problemas complejos",
+            "Excelente en descomposicion de sistemas",
+            "Respuestas largas y detalladas sin degradacion",
+            "Artifacts para documentos estructurados"
+          ],
+          "weaknesses": [
+            "No genera diagramas visuales nativamente"
+          ],
+          "best_for": ["system_decomposition", "technical_specs", "user_stories", "architecture_decisions"],
+          "scores": {
+            "arena_reasoning_elo": 1503,
+            "expert_score": 9.5
+          },
+          "pricing_model": "subscription_or_token",
+          "access": "web_chat",
+          "updated": "2026-03-01"
+        },
+        {
+          "id": "chatgpt_planning",
+          "name": "ChatGPT (OpenAI) - Planning",
+          "type": "ai_reasoning",
+          "strengths": [
+            "Interfaz accesible y familiar",
+            "GPTs personalizados para metodologias especificas",
+            "Bueno para brainstorming inicial",
+            "Canvas para documentos iterativos"
+          ],
+          "weaknesses": [
+            "Razonamiento menos profundo que Claude en sistemas complejos",
+            "Tendencia a respuestas genericas en arquitectura"
+          ],
+          "best_for": ["brainstorming", "initial_scoping", "non_technical_stakeholders"],
+          "scores": {
+            "arena_reasoning_elo": 1420,
+            "expert_score": 7.5
+          },
+          "pricing_model": "subscription_or_token",
+          "access": "web_chat",
+          "updated": "2026-03-01"
+        },
+        {
+          "id": "gemini_planning",
+          "name": "Gemini (Google) - Planning",
+          "type": "ai_reasoning",
+          "strengths": [
+            "Contexto masivo para analizar documentacion existente",
+            "Integracion con Google Workspace",
+            "Bueno para resumir grandes volumenes de requisitos"
+          ],
+          "weaknesses": [
+            "Menos estructurado en outputs tecnicos"
+          ],
+          "best_for": ["large_document_analysis", "migration_planning", "google_ecosystem"],
+          "scores": {
+            "arena_reasoning_elo": 1500,
+            "expert_score": 8.0
+          },
+          "pricing_model": "subscription_or_token",
+          "access": "web_chat",
+          "updated": "2026-03-01"
+        }
+      ]
+    },
+
+    {
+      "id": "database_design",
+      "name": "Diseno de Bases de Datos",
+      "description": "Disenar la estructura de datos, elegir el tipo de base de datos (SQL, NoSQL, Graph, etc.), y definir esquemas, indices, sharding y replicacion.",
+      "sdlc_phase": "design",
+      "benchmark_sources": ["expert_review"],
+      "tools": [
+        {
+          "id": "ai_stack_db_skill",
+          "name": "AI Stack DB Skill (Vercel Skill)",
+          "type": "specialized_skill",
+          "strengths": [
+            "Diseno polyglot basado en CAP theorem",
+            "Considera sharding, replicacion, consistencia",
+            "Especializada en el paso 0 antes de codear",
+            "Integra Cassandra, MongoDB, Neo4j, Redis, PostgreSQL"
+          ],
+          "weaknesses": [
+            "Requiere input estructurado del usuario"
+          ],
+          "best_for": ["polyglot_persistence", "complex_data_models", "distributed_systems"],
+          "scores": {
+            "expert_score": 9.0
+          },
+          "pricing_model": "free",
+          "access": "skill",
+          "updated": "2026-03-01"
+        },
+        {
+          "id": "claude_code_db",
+          "name": "Claude Code - Database Design",
+          "type": "ai_coding_agent",
+          "strengths": [
+            "Genera schemas, migrations, ORMs completos",
+            "Razonamiento sobre trade-offs de consistencia",
+            "Puede ejecutar y validar migrations"
+          ],
+          "weaknesses": [
+            "No tiene framework especializado como la DB skill"
+          ],
+          "best_for": ["schema_generation", "migration_scripts", "orm_setup"],
+          "scores": {
+            "expert_score": 8.5
+          },
+          "pricing_model": "token_based",
+          "access": "cli",
+          "updated": "2026-03-01"
+        }
+      ]
+    },
+
+    {
+      "id": "testing_qa",
+      "name": "Testing y QA Automatizado",
+      "description": "Generar tests unitarios, de integracion, e2e, detectar bugs, y validar calidad de codigo.",
+      "sdlc_phase": "testing",
+      "benchmark_sources": ["swe_bench", "expert_review"],
+      "tools": [
+        {
+          "id": "claude_code_testing",
+          "name": "Claude Code - Testing",
+          "type": "ai_coding_agent",
+          "strengths": [
+            "Genera tests con alta cobertura automaticamente",
+            "Ejecuta tests y corrige en loop hasta pasar",
+            "Entiende el contexto del proyecto completo",
+            "Puede hacer TDD (test-driven development)"
+          ],
+          "weaknesses": [
+            "Costo por token en sesiones largas de debugging"
+          ],
+          "best_for": ["unit_tests", "integration_tests", "tdd", "bug_reproduction"],
+          "scores": {
+            "swe_bench_verified": 0.75,
+            "expert_score": 9.0
+          },
+          "pricing_model": "token_based",
+          "access": "cli",
+          "updated": "2026-03-01"
+        },
+        {
+          "id": "copilot_testing",
+          "name": "GitHub Copilot - Testing",
+          "type": "ai_coding_assistant",
+          "strengths": [
+            "Genera tests inline mientras codeas",
+            "Autocompletado de assertions y mocks",
+            "Integrado en el flujo de desarrollo"
+          ],
+          "weaknesses": [
+            "No ejecuta los tests por si mismo",
+            "Menor cobertura en tests complejos"
+          ],
+          "best_for": ["inline_test_generation", "simple_unit_tests", "mock_generation"],
+          "scores": {
+            "expert_score": 7.0
+          },
+          "pricing_model": "subscription",
+          "access": "ide_extension",
+          "updated": "2026-03-01"
+        }
+      ]
+    },
+
+    {
+      "id": "visual_assets",
+      "name": "Generacion de Assets Visuales",
+      "description": "Crear imagenes, iconos, logos, ilustraciones, mockups y assets graficos para el proyecto.",
+      "sdlc_phase": "design_visual",
+      "benchmark_sources": ["expert_review"],
+      "tools": [
+        {
+          "id": "midjourney",
+          "name": "Midjourney",
+          "type": "ai_image_generator",
+          "strengths": [
+            "Calidad artistica superior",
+            "Estilos consistentes con style references",
+            "Excelente para branding y marketing",
+            "Comunidad activa con prompts compartidos"
+          ],
+          "weaknesses": [
+            "Solo via Discord o web (no API publica estable)",
+            "Menos control preciso sobre layouts UI",
+            "No genera iconos SVG"
+          ],
+          "best_for": ["hero_images", "branding", "illustrations", "marketing_assets"],
+          "scores": {
+            "expert_score": 9.0
+          },
+          "pricing_model": "subscription",
+          "access": "web_discord",
+          "updated": "2026-03-01"
+        },
+        {
+          "id": "dall_e",
+          "name": "DALL-E 3 (OpenAI)",
+          "type": "ai_image_generator",
+          "strengths": [
+            "API estable y documentada",
+            "Buena comprension de texto en imagenes",
+            "Integrado en ChatGPT",
+            "Edicion de imagenes existentes"
+          ],
+          "weaknesses": [
+            "Calidad artistica inferior a Midjourney",
+            "Menos control sobre estilos"
+          ],
+          "best_for": ["api_integration", "text_in_images", "quick_mockups", "programmatic_generation"],
+          "scores": {
+            "expert_score": 7.5
+          },
+          "pricing_model": "token_based",
+          "access": "api_web",
+          "updated": "2026-03-01"
+        },
+        {
+          "id": "figma_ai",
+          "name": "Figma AI",
+          "type": "ai_design_tool",
+          "strengths": [
+            "Integrado en el flujo de diseno profesional",
+            "Genera variantes de componentes",
+            "Auto-layout inteligente",
+            "Colaboracion en tiempo real"
+          ],
+          "weaknesses": [
+            "Requiere conocimiento de Figma",
+            "AI features aun en evolucion"
+          ],
+          "best_for": ["professional_ui_design", "design_systems", "team_collaboration", "component_variants"],
+          "scores": {
+            "expert_score": 8.0
+          },
+          "pricing_model": "subscription",
+          "access": "web_app",
+          "updated": "2026-03-01"
+        }
+      ]
+    },
+
+    {
+      "id": "devops_deploy",
+      "name": "DevOps, Deploy e Infraestructura",
+      "description": "Configurar CI/CD, containerizar, deployar, gestionar infraestructura como codigo, y monitorear aplicaciones.",
+      "sdlc_phase": "deployment",
+      "benchmark_sources": ["expert_review"],
+      "tools": [
+        {
+          "id": "claude_code_devops",
+          "name": "Claude Code - DevOps",
+          "type": "ai_coding_agent",
+          "strengths": [
+            "Genera Dockerfiles, CI/CD configs, IaC",
+            "Ejecuta comandos de deploy reales",
+            "Diagnostica errores de infra en contexto",
+            "Soporta Terraform, Kubernetes, GitHub Actions"
+          ],
+          "weaknesses": [
+            "Requiere permisos de sistema para ejecutar",
+            "No tiene integracion nativa con cloud dashboards"
+          ],
+          "best_for": ["docker", "ci_cd", "terraform", "kubernetes", "github_actions"],
+          "scores": {
+            "expert_score": 9.0
+          },
+          "pricing_model": "token_based",
+          "access": "cli",
+          "updated": "2026-03-01"
+        },
+        {
+          "id": "vercel_platform",
+          "name": "Vercel (Platform)",
+          "type": "deployment_platform",
+          "strengths": [
+            "Deploy zero-config para Next.js",
+            "Preview deploys automaticos por PR",
+            "Edge functions y serverless nativo",
+            "Integracion con v0"
+          ],
+          "weaknesses": [
+            "Optimizado para Next.js/React",
+            "Costos escalan con trafico"
+          ],
+          "best_for": ["nextjs_deploy", "frontend_hosting", "preview_environments", "edge_computing"],
+          "scores": {
+            "expert_score": 9.0
+          },
+          "pricing_model": "usage_based",
+          "access": "platform",
+          "updated": "2026-03-01"
+        }
+      ]
+    },
+
+    {
+      "id": "documentation",
+      "name": "Documentacion Tecnica",
+      "description": "Generar documentacion de API, READMEs, guias tecnicas, diagramas de arquitectura, y documentacion de usuario.",
+      "sdlc_phase": "documentation",
+      "benchmark_sources": ["expert_review"],
+      "tools": [
+        {
+          "id": "claude_docs",
+          "name": "Claude - Documentation",
+          "type": "ai_reasoning",
+          "strengths": [
+            "Genera documentacion extensa sin perder calidad",
+            "Excelente en explicaciones tecnicas claras",
+            "Artifacts para documentos estructurados",
+            "Consistencia en documentos largos"
+          ],
+          "weaknesses": [
+            "No genera diagramas visuales nativamente"
+          ],
+          "best_for": ["api_docs", "technical_guides", "architecture_docs", "readmes"],
+          "scores": {
+            "expert_score": 9.5
+          },
+          "pricing_model": "subscription_or_token",
+          "access": "web_chat",
+          "updated": "2026-03-01"
+        },
+        {
+          "id": "mermaid_via_ai",
+          "name": "Mermaid (via Claude/ChatGPT)",
+          "type": "diagram_generator",
+          "strengths": [
+            "Diagramas como codigo (versionables en git)",
+            "Flowcharts, sequence, ER, class diagrams",
+            "Renderizable en GitHub, Notion, etc.",
+            "Cualquier LLM puede generar Mermaid"
+          ],
+          "weaknesses": [
+            "Limitado en diagramas complejos de arquitectura",
+            "Estetica basica comparada con herramientas visuales"
+          ],
+          "best_for": ["architecture_diagrams", "flow_charts", "er_diagrams", "sequence_diagrams"],
+          "scores": {
+            "expert_score": 8.0
+          },
+          "pricing_model": "free",
+          "access": "code",
+          "updated": "2026-03-01"
+        },
+        {
+          "id": "eraser_io",
+          "name": "Eraser.io",
+          "type": "ai_diagram_tool",
+          "strengths": [
+            "Genera diagramas de arquitectura desde texto",
+            "Estilos profesionales listos para presentar",
+            "Colaboracion en tiempo real",
+            "Cloud architecture diagrams nativos"
+          ],
+          "weaknesses": [
+            "Herramienta separada (no integrada en IDE)",
+            "Plan free limitado"
+          ],
+          "best_for": ["cloud_architecture", "system_design", "presentation_diagrams", "team_docs"],
+          "scores": {
+            "expert_score": 8.5
+          },
+          "pricing_model": "freemium",
+          "access": "web_app",
+          "updated": "2026-03-01"
+        }
+      ]
+    }
+  ],
+
+  "scoring_methodology": {
+    "expert_score": {
+      "range": [0, 10],
+      "description": "Score asignado por curacion experta. Considera calidad de output, fiabilidad, facilidad de uso, y madurez del producto.",
+      "freshness_decay": {
+        "enabled": true,
+        "decay_start_days": 30,
+        "decay_rate": 0.05,
+        "min_score_multiplier": 0.7,
+        "formula": "effective_score = expert_score * max(0.7, 1 - (days_since_update - 30) * 0.05 / 30)"
+      }
+    },
+    "benchmark_scores": {
+      "description": "Scores provenientes de fuentes automatizadas (APIs y datasets publicos). Se actualizan programaticamente.",
+      "normalization": "Cada benchmark se normaliza a escala 0-1 para comparabilidad. Elo ratings se normalizan como (elo - 1000) / 600."
+    }
+  },
+
+  "selection_algorithm": {
+    "description": "Como el sistema selecciona la herramienta optima para cada capacidad.",
+    "factors": [
+      {
+        "name": "quality_score",
+        "weight": 0.40,
+        "source": "Promedio ponderado de benchmark_scores + expert_score normalizado"
+      },
+      {
+        "name": "task_fit",
+        "weight": 0.25,
+        "source": "Match entre best_for de la herramienta y los modulos del proyecto del usuario"
+      },
+      {
+        "name": "developer_level",
+        "weight": 0.15,
+        "source": "junior: prioriza accesibilidad y UX. senior: prioriza potencia y control"
+      },
+      {
+        "name": "cost_efficiency",
+        "weight": 0.10,
+        "source": "pricing_model relativo al presupuesto del usuario"
+      },
+      {
+        "name": "ecosystem_compatibility",
+        "weight": 0.10,
+        "source": "Compatibilidad con otras herramientas ya seleccionadas en el stack"
+      }
+    ]
+  }
+}

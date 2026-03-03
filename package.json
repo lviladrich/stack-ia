@@ -1,0 +1,38 @@
+{
+  "name": "ai-stack-advisor",
+  "version": "1.0.0",
+  "description": "AI Stack Advisor - Recommends the optimal AI tool stack for your project based on benchmarks, SDLC phase, and developer profile.",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "cli": "ts-node src/index.ts"
+  },
+  "keywords": [
+    "ai",
+    "stack",
+    "advisor",
+    "developer-tools",
+    "llm",
+    "benchmarks"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
+    "@tailwindcss/postcss": "^4.2.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "next": "^16.1.6",
+    "postcss": "^8.5.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwindcss": "^4.2.1"
+  }
+}

@@ -1,0 +1,34 @@
+[00:00:01.073] Server  LOG     ✓ Ready in 740ms
+[00:01:51.685] Server  LOG     ✓ Compiled in 34ms
+[00:01:58.669] Server  LOG     ✓ Compiled in 26ms
+[09:29:52.807] Server  LOG     ✓ Compiled in 19ms
+[09:33:20.177] Server  LOG     ✓ Compiled in 12ms
+[09:33:24.544] Server  LOG     ✓ Compiled in 11ms
+[09:33:34.846] Server  LOG     ✓ Compiled in 51ms
+[09:33:39.478] Server  LOG     ✓ Compiled in 82ms
+[09:33:45.256] Server  LOG     ✓ Compiled in 48ms
+[09:33:56.149] Server  LOG     ✓ Compiled in 44ms
+[09:34:01.586] Server  LOG     ✓ Compiled in 33ms
+[09:34:07.631] Server  LOG     ✓ Compiled in 77ms
+[09:34:13.089] Server  LOG     ✓ Compiled in 26ms
+[09:34:18.202] Server  LOG     ✓ Compiled in 46ms
+[09:37:38.205] Server  LOG     ✓ Compiled in 18ms
+[09:38:39.859] Server  LOG     ✓ Compiled in 18ms
+[09:45:20.361] Server  LOG     ✓ Compiled in 28ms
+[09:45:30.571] Server  LOG     ✓ Compiled in 21ms
+[09:45:40.702] Server  LOG     ✓ Compiled in 10ms
+[09:45:47.645] Server  LOG     ✓ Compiled in 17ms
+[09:46:28.458] Server  LOG     ✓ Compiled in 25ms
+[09:46:34.653] Server  LOG     ✓ Compiled in 11ms
+[09:46:41.500] Server  LOG     ✓ Compiled in 18ms
+[09:48:49.808] Server  LOG     ✓ Compiled in 23ms
+[09:48:58.960] Server  LOG     ✓ Compiled in 10ms
+[09:49:25.797] Server  LOG     ✓ Compiled in 19ms
+[09:51:20.503] Server  LOG     ✓ Compiled in 9ms
+[09:51:20.593] Browser ERROR   uncaughtError: ReferenceError: Can't find variable: TOOL_COLORS
+[09:51:24.723] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[09:51:24.842] Server  LOG     ✓ Compiled in 10ms
+[09:51:33.093] Server  LOG     ✓ Compiled in 30ms
+[09:51:41.266] Server  LOG     ✓ Compiled in 19ms
+[09:51:45.428] Server  LOG     ✓ Compiled in 25ms
+[09:51:49.877] Server  LOG     ✓ Compiled in 20ms
