@@ -91,13 +91,9 @@ export default function Home() {
 
   return (
     <main className="min-h-screen relative overflow-hidden">
-      {/* Background ambient lights */}
+      {/* Background gradient */}
       {!results && !isLoading && (
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-[-25%] left-1/2 -translate-x-1/2 w-[1100px] h-[800px] rounded-full bg-purple-600/[0.07] blur-[140px]" />
-          <div className="absolute top-[0%] left-[10%] w-[500px] h-[500px] rounded-full bg-violet-500/[0.06] blur-[120px]" />
-          <div className="absolute top-[-5%] right-[10%] w-[450px] h-[450px] rounded-full bg-fuchsia-500/[0.04] blur-[110px]" />
-        </div>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 70%)' }} />
       )}
 
       {/* ===== HERO STATE ===== */}
@@ -139,9 +135,9 @@ export default function Home() {
                 <button
                   key={i}
                   onClick={() => setSelectedExample(ex)}
-                  className={`px-3.5 py-1.5 text-[12px] rounded-full transition-all ${
+                  className={`px-3.5 py-1.5 text-[12px] rounded-full transition-colors ${
                     selectedExample === ex
-                      ? "glass text-[var(--text-primary)] glow-purple border-purple-500/30"
+                      ? "bg-purple-500/10 text-[var(--text-primary)] border border-purple-500/30"
                       : "border border-[var(--border)] text-[var(--text-secondary)] hover:border-purple-500/30 hover:text-[var(--text-primary)]"
                   }`}
                 >
@@ -176,8 +172,8 @@ export default function Home() {
           <div className="max-w-3xl mx-auto px-6 pb-16">
             <div className="grid sm:grid-cols-3 gap-3">
               {FEATURES.map((f, i) => (
-                <div key={i} className="glass rounded-2xl p-5 group hover:glow-soft transition-all hover:border-purple-500/20">
-                  <div className="text-purple-400 mb-3 group-hover:scale-110 transition-transform">
+                <div key={i} className="glass rounded-2xl p-5 group hover:border-purple-500/20">
+                  <div className="text-purple-400 mb-3">
                     {f.icon}
                   </div>
                   <div className="text-[14px] font-semibold text-[var(--text-primary)] mb-1">{f.title}</div>
